@@ -71,6 +71,10 @@ class ViewController: UIViewController {
         processOperation(operation: currentOperation)
     }
     
+    @IBAction func onClearPressed(sender: AnyObject) {
+        clearOutput()
+    }
+    
     func playSound() {
         if btnSound.isPlaying {
             btnSound.stop()         // if sound is playing, stop it
@@ -88,6 +92,10 @@ class ViewController: UIViewController {
             if runningNumber != "" {
                 rightValStr = runningNumber
                 runningNumber = ""
+                
+                if leftValStr == "" {
+                    leftValStr = "0"
+                }
                 
                 if currentOperation == Operation.Multiply {
                     result = "\(Double(leftValStr)! * Double(rightValStr)!)"
@@ -109,6 +117,17 @@ class ViewController: UIViewController {
             runningNumber = ""
             currentOperation = operation
         }
+    }
+    
+    func clearOutput() {
+        playSound()
+        
+        currentOperation = Operation.Empty
+        runningNumber = ""
+        leftValStr = ""
+        rightValStr = ""
+        result = ""
+        outputLbl.text = "0"
     }
 }
 
